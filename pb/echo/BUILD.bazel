@@ -1,0 +1,32 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+
+go_library(
+    name = "go_default_library",
+    embed = [":echo_go_proto"],
+    importpath = "bazel_example/pb/echo",
+    visibility = ["//visibility:public"],
+)
+
+
+proto_library(
+    name = "echo_proto",
+    srcs = [
+        "bar.proto",
+        "echo.proto",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+#        "//:root_proto",
+        "@com_google_protobuf//:any_proto",
+    ],
+)
+
+go_proto_library(
+    name = "echo_go_proto",
+    importpath = "bazel_example/pb/echo",
+    proto = ":echo_proto",
+    visibility = ["//visibility:public"],
+#    deps = ["//:go_default_library"],
+)
+

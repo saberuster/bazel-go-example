@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option go_package = "bazel_example/pb/echo";
+
+
+message Bar {
+    string msg = 1;
+}
