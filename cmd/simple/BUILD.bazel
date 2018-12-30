@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "bazel_example/cmd/simple",
+    visibility = ["//visibility:public"],
+    deps = ["//version:go_default_library"],
+)
+
+go_binary(
+    name = "simple",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+    x_defs = {"bazel_example/version.Version": "{STABLE_GIT_COMMIT}"},
+)

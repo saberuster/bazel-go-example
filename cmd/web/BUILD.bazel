@@ -2,15 +2,14 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
     name = "go_default_library",
-    srcs = ["main.go"],
-    importpath = "bazel_example/cmd",
+    srcs = ["web.go"],
+    importpath = "bazel_example/cmd/web",
     visibility = ["//visibility:private"],
-    deps = ["//version:go_default_library"],
+    deps = ["@com_github_gin_gonic_gin//:go_default_library"],
 )
 
 go_binary(
-    name = "cmd",
+    name = "web",
     embed = [":go_default_library"],
     visibility = ["//visibility:public"],
-    x_defs = {"bazel_example/version.Version": "{STABLE_GIT_COMMIT}"},
 )
